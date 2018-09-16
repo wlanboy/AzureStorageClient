@@ -20,7 +20,8 @@ public class QueueClient {
 
 	@Autowired
 	private CloudStorageAccount cloudStorageAccount;
-
+	private CloudQueueClient queueClient;
+	private CloudQueue container;
 	final String queueName = "kubqueue";
 
 	public QueueClient() {
@@ -29,8 +30,7 @@ public class QueueClient {
 
 	public void createQueueIfNotExists() throws URISyntaxException, StorageException {
 		try {
-			final CloudQueueClient queueClient = cloudStorageAccount.createCloudQueueClient();
-			final CloudQueue container = queueClient.getQueueReference(queueName);
+			container = initConnection();
 
 			container.createIfNotExists();
 		} catch (Exception e) {
@@ -38,12 +38,21 @@ public class QueueClient {
 		}
 	}
 
-	public void createMessage(String messageText){
+	private CloudQueue initConnection() throws URISyntaxException, StorageException {
+		if (queueClient == null) {
+			queueClient = cloudStorageAccount.createCloudQueueClient();
+		}
+		if (container == null) {
+			container = queueClient.getQueueReference(queueName);
+		}
+		return container;
+	}
+
+	public void createMessage(String messageText) {
 		try {
 
-			final CloudQueueClient queueClient = cloudStorageAccount.createCloudQueueClient();
-			final CloudQueue container = queueClient.getQueueReference(queueName);
-			
+			container = initConnection();
+
 			CloudQueueMessage message = new CloudQueueMessage(messageText);
 			container.addMessage(message);
 
@@ -55,22 +64,21 @@ public class QueueClient {
 	public StorageParameters readMessage() {
 		CloudQueueMessage content = null;
 		StorageParameters text = null;
-		
+
 		try {
-			final CloudQueueClient queueClient = cloudStorageAccount.createCloudQueueClient();
-			final CloudQueue container = queueClient.getQueueReference(queueName);
-			
+			container = initConnection();
+
 			content = container.retrieveMessage();
 			if (content != null) {
-				text = new StorageParameters(content.getId(), content.getPopReceipt(), content.getMessageContentAsString());
+				text = new StorageParameters(content.getId(), content.getPopReceipt(),
+						content.getMessageContentAsString());
 				container.deleteMessage(content);
 			}
-			
-			
+
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
 		}
-		
+
 		return text;
 	}
 

@@ -24,8 +24,9 @@ public class StorageClient {
 
 	@Autowired
 	private CloudStorageAccount cloudStorageAccount;
-
-	final String containerName = "azurestorage";
+	private CloudBlobClient blobClient;
+	private CloudBlobContainer container;
+	private final String containerName = "azurestorage";
 
 	public StorageClient() {
 
@@ -33,8 +34,7 @@ public class StorageClient {
 
 	public void createContainerIfNotExists() throws URISyntaxException, StorageException {
 		try {
-			final CloudBlobClient blobClient = cloudStorageAccount.createCloudBlobClient();
-			final CloudBlobContainer container = blobClient.getContainerReference(containerName);
+			container = initConnection();
 
 			container.createIfNotExists();
 		} catch (Exception e) {
@@ -42,11 +42,21 @@ public class StorageClient {
 		}
 	}
 
+	private CloudBlobContainer initConnection() throws URISyntaxException, StorageException {
+		if (blobClient == null) {
+			blobClient = cloudStorageAccount.createCloudBlobClient();
+		}
+		if (container == null) {
+			container = blobClient.getContainerReference(containerName);
+		}
+		return container;
+	}
+
 	public void uploadBlob(String filename, InputStream file, long length) throws URISyntaxException, StorageException {
 		try {
 
-			final CloudBlobClient blobClient = cloudStorageAccount.createCloudBlobClient();
-			final CloudBlobContainer container = blobClient.getContainerReference(containerName);
+			container = initConnection();
+
 			CloudBlockBlob blob = container.getBlockBlobReference(filename);
 			blob.upload(file, length);
 
@@ -60,8 +70,7 @@ public class StorageClient {
 
 		try {
 
-			final CloudBlobClient blobClient = cloudStorageAccount.createCloudBlobClient();
-			final CloudBlobContainer container = blobClient.getContainerReference(containerName);
+			container = initConnection();
 
 			for (ListBlobItem blobItem : container.listBlobs()) {
 				files.add(FilenameUtils.getName(blobItem.getUri().getPath()));
@@ -77,9 +86,8 @@ public class StorageClient {
 			throws URISyntaxException, StorageException {
 
 		try {
+			final CloudBlobContainer container = initConnection();
 
-			final CloudBlobClient blobClient = cloudStorageAccount.createCloudBlobClient();
-			final CloudBlobContainer container = blobClient.getContainerReference(containerName);
 			CloudBlockBlob blob = container.getBlockBlobReference(filename);
 			blob.download(download);
 		} catch (Exception e) {
@@ -90,10 +98,10 @@ public class StorageClient {
 	}
 
 	public void deleteBlob(String filename) throws URISyntaxException, StorageException {
-		try {
 
-			final CloudBlobClient blobClient = cloudStorageAccount.createCloudBlobClient();
-			final CloudBlobContainer container = blobClient.getContainerReference(containerName);
+		try {
+			container = initConnection();
+
 			CloudBlockBlob blob = container.getBlockBlobReference(filename);
 			blob.deleteIfExists();
 		} catch (Exception e) {
