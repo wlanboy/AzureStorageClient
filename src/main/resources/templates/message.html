@@ -57,10 +57,10 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <tr th:object="${latestMessage}">
-			      <td th:text="${identifier}"></td>
-			      <td th:text="${name}"></td>
-			      <td th:text="${content}"></td>
+			    <tr>
+			      <td> <p th:text="${latestMessage.identifier}"></p></td>
+			      <td> <p th:text="${latestMessage.name}"></p></td>
+			      <td> <p th:text="${latestMessage.content}"></p></td>
 			    </tr>
 			  </tbody>
 			</table>
