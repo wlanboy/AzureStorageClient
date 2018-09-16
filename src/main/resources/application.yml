@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: simpleservice
+  cloud:
+    config:
+      failFast: false
+      discovery:
+        serviceId: serviceconfig
+        enabled: true
+  zipkin:
+    base-url: http://servicelogging    
+
+server:
+  port: ${PORT:8001}
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${EUREKA_ZONE:http://127.0.0.1:8761/eureka/}   
+
+feign:
+  hystrix:
+    enabled: false    
+    
+azure:
+  storage:
+    connection-string: add-your-own-storage-account
+    allow-telemetry: false
+    
