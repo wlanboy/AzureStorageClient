@@ -28,7 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.microsoft.azure.storage.StorageException;
-import com.wlanboy.demo.servicebus.StorageClient;
+import com.wlanboy.demo.storage.StorageClient;
 
 @Controller
 public class IndexController {

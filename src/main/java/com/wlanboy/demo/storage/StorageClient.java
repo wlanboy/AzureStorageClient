@@ -1,4 +1,4 @@
-package com.wlanboy.demo.servicebus;
+package com.wlanboy.demo.storage;
 
 import java.io.InputStream;
 import java.io.OutputStream;
