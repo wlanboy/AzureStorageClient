@@ -1,6 +1,6 @@
 spring:
   application:
-    name: simpleservice
+    name: azurestorageclient
   cloud:
     config:
       failFast: false
@@ -26,6 +26,6 @@ feign:
     
 azure:
   storage:
-    connection-string: add-your-own-storage-account
+    connection-string: 
     allow-telemetry: false
     
