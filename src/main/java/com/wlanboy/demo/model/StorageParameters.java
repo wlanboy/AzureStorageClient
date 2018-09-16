@@ -9,11 +9,18 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class StorageParameters extends ResourceSupport {
 
-	public StorageParameters(Long id, String name) {
+	public StorageParameters() {
+		
+	};
+	
+	public StorageParameters(String id, String name, String content) {
 		this.identifier = id;
 		this.name = name;
+		this.content = content;
 	}
 
-	private Long identifier;
-	private String name;
+	public String identifier;
+	public String name;
+	public String content;
+
 }

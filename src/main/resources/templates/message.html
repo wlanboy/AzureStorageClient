@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="default">
 <head>
-<title>Azure Storage Client</title>
+<title>Azure Queue Client</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <link rel="stylesheet" type="text/css"
@@ -12,7 +12,7 @@
 	<nav class="navbar navbar-inverse">
 		<div class="container" layout:fragment="header">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Storage Client</a>
+				<a class="navbar-brand" href="#">Queue Client</a>
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
@@ -32,14 +32,14 @@
 			<table class="table table-striped">
 			  <thead>
 			    <tr>
-			      <th scope="col">Upload Blob</th>
+			      <th scope="col">Add Blob</th>
 			    </tr>
 			  </thead>
 			  <tbody>
 			    <tr>
 			      <td>
-						<form action="#" th:action="@{/upload}" method="post" enctype="multipart/form-data">
-					        <p>File: <input type="file" name="file" /></p>
+						<form action="#" th:action="@{/newmessage}" method="post">
+					        <p>Message: <input type="text" name="text" /></p>
 					        <p><input type="submit" value="Submit" /></p>
 					    </form>
 				  </td>
@@ -47,21 +47,20 @@
 			  </tbody>
 			</table>		
     
-            <p>Latest Blobs</p>
+            <p>Pop message</p>
 			<table class="table table-striped">
 			  <thead>
 			    <tr>
-			      <th scope="col">Blob</th>
-			      <th scope="col">Actions</th>
+			     <th scope="col">id</th>
+			     <th scope="col">receipt</th>
+			      <th scope="col">content</th>
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <tr th:each="blob : ${latestBlobs}">
-			      <td th:text="${blob}"></td>
-			      <td>
-			      		<a th:href="|/download/${blob}|" th:text="|Download|"></a> | 
-			      		<a th:href="|/delete/${blob}|" th:text="|Delete|"></a>
-			      </td>
+			    <tr th:object="${latestMessage}">
+			      <td th:text="${identifier}"></td>
+			      <td th:text="${name}"></td>
+			      <td th:text="${content}"></td>
 			    </tr>
 			  </tbody>
 			</table>
@@ -71,8 +70,8 @@
 			  <tbody>
 			    <tr>
 			      <td>
-						<form action="#" th:action="@{/}" method="post">
-					        <p><input type="submit" value="Update blob list ..." /></p>
+						<form action="#" th:action="@{/message}" method="post">
+					        <p><input type="submit" value="Load next message ..." /></p>
 					    </form>
 				  </td>
 			    </tr>
