@@ -21,3 +21,7 @@ docker build -t azureStorageClient:latest . --build-arg JAR_FILE=./target/AzureS
 
 ## Docker run
 docker run --name azureStorageClient -d -p 8001:8001 -v /tmp:/tmp azureStorageClient:latest
+
+## Usage
+http://127.0.0.1:8001/ for Storage Client
+http://127.0.0.1:8001/message for Queue Client
