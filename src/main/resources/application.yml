@@ -15,6 +15,6 @@ feign:
     
 azure:
   storage:
-    connection-string: DefaultEndpointsProtocol=https;AccountName=filespace22;AccountKey=xc/wS2bYdHpXf1nWwlt4yff3LtkXYK+Z23OaKUrCXsGJ4CbLjZVk2u32HD6ipV4oHT1RjlaA7oUkmKm98Bfngw==;EndpointSuffix=core.windows.net
+    connection-string: 
     allow-telemetry: false
     
