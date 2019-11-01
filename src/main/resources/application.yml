@@ -4,21 +4,10 @@ spring:
   cloud:
     config:
       failFast: false
-      discovery:
-        serviceId: serviceconfig
-        enabled: true
-  zipkin:
-    base-url: http://servicelogging    
+      uri: http://cloudconfig:8888 
 
 server:
   port: ${PORT:8001}
-
-eureka:
-  client:
-    registerWithEureka: true
-    fetchRegistry: true
-    serviceUrl:
-      defaultZone: ${EUREKA_ZONE:http://127.0.0.1:8761/eureka/}   
 
 feign:
   hystrix:
@@ -26,6 +15,6 @@ feign:
     
 azure:
   storage:
-    connection-string: 
+    connection-string: DefaultEndpointsProtocol=https;AccountName=filespace22;AccountKey=xc/wS2bYdHpXf1nWwlt4yff3LtkXYK+Z23OaKUrCXsGJ4CbLjZVk2u32HD6ipV4oHT1RjlaA7oUkmKm98Bfngw==;EndpointSuffix=core.windows.net
     allow-telemetry: false
     

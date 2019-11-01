@@ -9,9 +9,6 @@ mvn package -DskipTests=true
 
 ## Run Simple Storage Client 
 ### Environment variables
-#### EUREKA_ZONE 
-Default value: http://127.0.0.1:8761/eureka/
-Defining all available Eureka Instances.
 
 ### Windows
 java -jar target\AzureStorageClient.jar
@@ -23,4 +20,4 @@ java -jar target\AzureStorageClient.jar
 docker build -t azureStorageClient:latest . --build-arg JAR_FILE=./target/AzureStorageClient.jar
 
 ## Docker run
-docker run --name azureStorageClient -d -p 8001:8001 --link serviceregistry:serviceregistry -v /tmp:/tmp -e EUREKA_ZONE=$EUREKA_ZONE azureStorageClient:latest
+docker run --name azureStorageClient -d -p 8001:8001 -v /tmp:/tmp azureStorageClient:latest
