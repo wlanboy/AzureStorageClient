@@ -76,6 +76,15 @@ public class QueueClient {
 			}
 
 		} catch (Exception e) {
+			if (e.getMessage().contains("The specified queue does not exist")) {
+				try {
+					createQueueIfNotExists();
+				} catch (URISyntaxException e1) {
+					logger.severe(e1.getMessage());
+				} catch (StorageException e1) {
+					logger.severe(e1.getMessage());
+				}
+			}
 			logger.severe(e.getMessage());
 		}
 
