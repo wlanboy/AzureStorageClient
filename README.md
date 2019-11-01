@@ -11,16 +11,16 @@ mvn package -DskipTests=true
 ### Environment variables
 
 ### Windows
-java -jar target\AzureStorageClient.jar
+java -jar target\azurestorageclient.jar
 
 ### Linux (service enabled)
-./target/AzureStorageClient.jar start
+./target/azurestorageclient.jar start
 
 ## Docker build
-docker build -t azureStorageClient:latest . --build-arg JAR_FILE=./target/AzureStorageClient.jar
+docker build -t azurestorageclient:latest . --build-arg JAR_FILE=./target/azurestorageclient.jar
 
 ## Docker run
-docker run --name azureStorageClient -d -p 8001:8001 -v /tmp:/tmp azureStorageClient:latest
+docker run --name azurestorageclient -d -p 8001:8001 -v /tmp:/tmp azurestorageclient:latest
 
 ## Usage
 http://127.0.0.1:8001/ for Storage Client
