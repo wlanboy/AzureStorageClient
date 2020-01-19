@@ -1,8 +1,8 @@
 package com.wlanboy.demo.model;
 
-import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.RepresentationModel;
 
-public class StorageParameters extends ResourceSupport {
+public class StorageParameters extends RepresentationModel<StorageParameters> {
 
 	private String identifier;
 	private String name;
