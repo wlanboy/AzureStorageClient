@@ -25,7 +25,7 @@ pipeline {
     }    
     stage('Container') {
       steps {
-        sh 'docker build -t azurestorageclient:latest . --build-arg JAR_FILE=./target/azurestorageclient.jar'
+        sh 'docker build -t azurestorageclient:latest . --build-arg JAR_FILE=./target/azurestorageclient-0.0.1-SNAPSHOT.jar'
       }
     }
     stage('Publish') {
