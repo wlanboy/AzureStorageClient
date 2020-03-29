@@ -22,6 +22,11 @@ pipeline {
       steps {
         sh 'mvn clean package -DskipTests'
       }
+    }    
+    stage('Container') {
+      steps {
+        sh 'docker build -t azurestorageclient:latest . --build-arg JAR_FILE=./target/azurestorageclient.jar'
+      }
     }
     stage('Publish') {
       when { expression { params.PUBLISHIMAGE == true } }
