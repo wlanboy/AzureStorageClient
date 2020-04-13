@@ -1,3 +1,5 @@
+![Java CI with Maven](https://github.com/wlanboy/AzureStorageClient/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master)
+
 # Azure
 Spring Boot Azure Storage Client (MVC and REST)
 
